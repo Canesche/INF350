@@ -1,2 +1,5 @@
 # hello-world
-Tests repository
+
+Hi Guys, 
+
+Canesche here! I'm studying GitHub, be nice.
