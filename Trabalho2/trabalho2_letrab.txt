@@ -1,0 +1,63 @@
+b) Biblioteca em portugues para Lampada com Ldr e presença. Permitir ao usuário conectar uma lampadas, sensores LDR e sensores de presença. Para cada lampada posso adicionar PIR ou LDR. Uma dica é usar uma lista implementada em um array.
+
+ 
+
+Se adicionar PIR, irá acender se um ou mais PIR estiver ativo. Se adicionar LDR só irá acender se todos os LDR estiverem ativos. Se adicionar PIR e LDR, terá que ter os LDRs ativos e pelo menos um PIR ativar.
+
+ 
+
+Exemplo de USO
+
+--------------------------------------------------
+
+#include “instalacaoPIR_e_LDR.h”
+
+ 
+
+lampada corredor(12); // Liguei uma lampada normal no corredor
+
+lampada varanda(11); // Liguei uma lampada normal na varanda
+
+ 
+
+setup() {
+
+corredor.PIR(2); // adicionei o primeiro PIR a lampada do corredor
+
+corredor.PIR(3); // adicionei o segundo PIR a lampada do corredor. Agora pode acender com
+
+// o PIR 1 ou PIR 2
+
+varanda.LDR(A0); // A varanda tera LDR no A0 e A1, acende se ambos ligarem.
+
+varanda.LDR(A1);
+
+}
+
+ 
+
+loop() {
+
+corredor.verifica();
+
+varanda.verifica();
+
+}
+
+-----------------------------------------------------------------------------------
+
+Metodos
+
+liga(); liga independente de sensores
+
+desliga(); independente de sensores
+
+verifica(); Em função dos sensores
+
+PIR(pino digital) adiciona um PIR
+
+LDR(pino analogico) adiciona um LDR
+
+Construtor lampada(pino digital)
+
+-------------------------------------------------------------------------------------
