@@ -1,11 +1,18 @@
-const byte LED_PIN = 13; 
+/*
+ * Trabalho 3 Letra a
+ * Autor: Michael Canesche - 68064
+ * Professor: Ricardo dos Santos Ferreira
+ * Última atualização: 25/04/17
+ * Esse trabalho pode ser encontrado em: https://github.com/Canesche/INF350
+ */
 
+const byte LED_PIN = 13; 
 // TIME
 #include <Time.h>
 // DHT
 #include "DHT.h"
 // obs.: para a versão da bbt do dht mais recente, precisa dessa bbt
-// link: https://github.com/adafruit/Adafruit_Sensor  ultima visualizacao: 06/04/17
+// link: https://github.com/adafruit/Adafruit_Sensor ultima visualizacao: 06/04/17
 #include <Adafruit_Sensor.h> 
 #define DHTPIN 2
 #define DHTTYPE DHT22
@@ -20,14 +27,13 @@ Ultrasonic ultrasonic(TRIGGER_PIN, ECHO_PIN);
 
 // variaveis globais
 String s = "", c = "";
-float valor, valorMIN = 9999, valorMAX = -9999, valorMEDIA = 0, valorAlertaMin = -9999, valorAlertaMax = 9999, valorAlertaMedia = -9999;
+float valor, valorMIN = 9999, valorMAX = -9999, valorMEDIA = 0, valorAlertaMin = -9999, valorAlertaMax = 9999, valorAlertaMedia = -9999, valorMedioMediana = 0;
 bool ligaMin = false, ligaMax = false, ligaMedia = false, ligaTempo = false, ligaLeitura = false;
 unsigned int qtd = 0;
 unsigned int tempo = 1000;
 unsigned int time_agora = now();
-int n = -1, j = 0, m = -1, k = -1;
+int n = -1, j = 0, m = -1, k = -1, mk = 0;
 int valores[20];
-int *vetor;
 
 void setup() {
   Serial.begin(9600);
@@ -40,13 +46,11 @@ void setup() {
         Tela_inicial();
         s = "";
      }
-     s = Serial.readString();
-     
+     s = Serial.readString();  
   } while(s != "1" && s != "2" && s != "3");
   if(s == "1") Serial.println(" --- Sendor LDR escolhido! ---");
   else if(s == "2") Serial.println(" --- Sendor DHT22 escolhido! ---");
   else if(s == "3") Serial.println(" --- Sendor Ultrassonico escolhido! ---");
-  
 }
 
 void loop() {
@@ -71,7 +75,6 @@ void loop() {
   if(ligaMedia) valorMAX = ((valorMAX + valor) / ++qtd);
   if(ligaTempo) time_agora = now(); 
   if(ligaLeitura){
-      vetor = new int[m-k];
       // ordena vetor
       for(int i = 0; i < n; i++)
           for(int j = i+1; j < n; j++)
@@ -80,33 +83,12 @@ void loop() {
                   valores[i] = valores[j];
                   valores[j] = aux;  
               }
-      int mediana, vmedmais, vmedmenos , kmais = k/2, kmenos = k/2;
-      if(n%2 == 0){ 
-        mediana = ((n-1)/2+(n+1)/2)/2;
-        vetor[mediana-1] = valores[(n-1)/2];
-        vetor[mediana+1] = valores[(n+1)/2];
-        kmais--;
-        kmenos--;
-      } else {
-        mediana = n/2;
-        vetor[mediana] = valores[n/2];
-        kmais--; 
-      }
-      vmedmais = mediana+1; 
-      vmedmenos = mediana-1;
-      vetor[mediana] = valores[mediana]; 
-      for(int i = 0; i < n; i++){
-          if(kmais > 0){
-              vetor[vmedmais] = valores[vmedmais];
-              kmais--;  
-          }
-          if(kmenos > 0){
-              vetor[vmedmenos] = valores[vmedmenos];
-              kmenos--;  
-          }
-          if(vmedmais < n) vmedmais++;
-          if(vmedmenos >= 0) vmedmenos--;  
-      }        
+      // calcula o valor medio da mediana
+      valorMedioMediana = 0;
+      for(int i = (n/2-mk/2); i < (n/2+mk/2); i++)
+          valorMedioMediana += valores[i];
+      valorMedioMediana /= mk;
+      ligaLeitura = false;        
   }
 
   // valores para o vetor
@@ -213,22 +195,22 @@ void loop() {
               Serial.println("Desligou o m leituras e descarta k leituras!");
               ligaLeitura = false;
           }else if(c.substring(ind1+1) == "PRINT"){
-              Serial.print("Valor Mediana: ");
-              //Serial.println();
-              /*for(int i = 0; i < m-k; i++){
-              
-              }*/
-              Serial.println("Desligou o m leituras e descarta k leituras!");
+              Serial.print("Valor Medio da mediana: ");
+              Serial.println(valorMedioMediana);
               ligaLeitura = false; 
           } else if(c.substring(ind1+1,ind2) == "SET"){
               m = c.substring(ind2+1,ind3).toInt();
               k = c.substring(ind3+1).toInt();
-              if(m >= k){
+              if(m > k){
                 if(k > 19) k = 19;
                 if(k < 1) k = 1;
                 if(m > 20) m = 20;
                 if(m < 1) m = 1;
-              }  
+                mk = m - k;
+              }
+              Serial.print("m = "); Serial.println(m);
+              Serial.print("k = "); Serial.println(k);
+              Serial.print("m - k = "); Serial.println(mk);  
           }
       }
   }
