@@ -1,11 +1,11 @@
-/*
+  /*
  * Trabalho 3 Letra a
  * Autor: Michael Canesche - 68064
  * Professor: Ricardo dos Santos Ferreira
  * Última atualização: 25/04/17
  * Esse trabalho pode ser encontrado em: https://github.com/Canesche/INF350
  */
-
+unsigned long time, tempoAntes;
 const byte LED_PIN = 13; 
 // TIME
 #include <Time.h>
@@ -51,54 +51,61 @@ void setup() {
   if(s == "1") Serial.println(" --- Sendor LDR escolhido! ---");
   else if(s == "2") Serial.println(" --- Sendor DHT22 escolhido! ---");
   else if(s == "3") Serial.println(" --- Sendor Ultrassonico escolhido! ---");
+  tempoAntes = 0; // inicializa o tempo
 }
 
 void loop() {
+  // atualiza o tempo 
+  time = millis();
 
-  if(s == "1"){ // LDR
-    valor = analogRead(LDR_PIN);
-    if(Verifica(valor,"Erro ao ler o sensor LDR!")) return;
-    Serial.print("Intensidade: "); Serial.println(valor);
-  } else if(s == "2"){ // DHT22
-    valor = dht.readTemperature();
-    if(Verifica(valor,"Erro ao ler o sensor DHT!")) return;
-    Serial.print("Temperature: "); Serial.println(valor); 
-  } else if(s == "3"){
-    valor = ultrasonic.convert(ultrasonic.timing(), Ultrasonic::CM);
-    if(Verifica(valor,"Erro ao ler o sensor Ultrassonic!")) return;
-    Serial.print("distancia (cm): "); Serial.println(valor);
-  }
-
-  // pega o menor/maiores valores atuais
-  if(ligaMin && valor < valorMIN) valorMIN = valor;
-  if(ligaMax && valor > valorMAX) valorMAX = valor;
-  if(ligaMedia) valorMAX = ((valorMAX + valor) / ++qtd);
-  if(ligaTempo) time_agora = now(); 
-  if(ligaLeitura){
-      // ordena vetor
-      for(int i = 0; i < n; i++)
-          for(int j = i+1; j < n; j++)
-              if(valores[i] < valores[j]){
-                  int aux = valores[i];
-                  valores[i] = valores[j];
-                  valores[j] = aux;  
-              }
-      // calcula o valor medio da mediana
-      valorMedioMediana = 0;
-      for(int i = (n/2-mk/2); i < (n/2+mk/2); i++)
-          valorMedioMediana += valores[i];
-      valorMedioMediana /= mk;
-      ligaLeitura = false;        
-  }
-
-  // valores para o vetor
-  if(n > 0 && j < n) valores[j++] = valor;
-  else j = 0;      
+  if(time - tempoAntes > tempo){
+      tempo = time = millis();
+      if(s == "1"){ // LDR
+        valor = analogRead(LDR_PIN);
+        if(Verifica(valor,"Erro ao ler o sensor LDR!")) return;
+        Serial.print("Intensidade: "); Serial.println(valor);
+      } else if(s == "2"){ // DHT22
+        valor = dht.readTemperature();
+        if(Verifica(valor,"Erro ao ler o sensor DHT!")) return;
+        Serial.print("Temperature: "); Serial.println(valor); 
+      } else if(s == "3"){
+        valor = ultrasonic.convert(ultrasonic.timing(), Ultrasonic::CM);
+        if(Verifica(valor,"Erro ao ler o sensor Ultrassonic!")) return;
+        Serial.print("distancia (cm): "); Serial.println(valor);
+      }
+      // pega o menor/maiores valores atuais
+      if(ligaMin && valor < valorMIN) valorMIN = valor;
+      if(ligaMax && valor > valorMAX) valorMAX = valor;
+      if(ligaMedia) valorMAX = ((valorMAX + valor) / ++qtd);
+      if(ligaTempo) time_agora = now(); 
+      if(ligaLeitura){
+          // ordena vetor
+          for(int i = 0; i < n; i++)
+              for(int j = i+1; j < n; j++)
+                  if(valores[i] < valores[j]){
+                      int aux = valores[i];
+                      valores[i] = valores[j];
+                      valores[j] = aux;  
+                  }
+          // calcula o valor medio da mediana
+          valorMedioMediana = 0;
+          for(int i = (n/2-mk/2); i < (n/2+mk/2); i++)
+              valorMedioMediana += valores[i];
+          valorMedioMediana /= mk;
+          ligaLeitura = false;        
+      }
+      // valores para o vetor
+      if(n > 0 && j < n) valores[j++] = valor;
+      else j = 0;      
+  }      
   
   // alertas
   if(valor < valorAlertaMin) digitalWrite(LED_PIN,HIGH);
+  else digitalWrite(LED_PIN,LOW);
   if(valor > valorAlertaMax) digitalWrite(LED_PIN,HIGH); 
+  else digitalWrite(LED_PIN,LOW);
   if(valor < valorAlertaMedia) digitalWrite(LED_PIN,HIGH);
+  digitalWrite(LED_PIN,LOW);
   
   if(Serial.available()){
       c = Serial.readString();
@@ -214,9 +221,6 @@ void loop() {
           }
       }
   }
-
-  delay(tempo);
-  digitalWrite(LED_PIN,LOW);
 }
 
 /* FUNCOES CRIADAS */
