@@ -1,6 +1,6 @@
-int R = 9;      //Pin 9
-int G = 10;    //Pin 10
-int B = 11;      //Pin 11
+int R = 9;  //Pin 9
+int G = 10; //Pin 10
+int B = 11; //Pin 11
 String l;
 
 void setup() {

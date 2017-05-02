@@ -1,3 +1,6 @@
+// exemplo do jogo
+//http://labdegaragem.com/profiles/blogs/genius
+
 int R = 9;      //Pin 9
 int G = 10;    //Pin 10
 int B = 11;      //Pin 11
