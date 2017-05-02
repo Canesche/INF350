@@ -40,9 +40,12 @@ void setup() {
             sensores[i] = myFile.readString();
         if(myFile.readString() == "Fim") break;
     }
+
 }
 
 void loop() {
+
+    
 
 /*
   Hora ;T_interna ;T_externa; Luminosidade

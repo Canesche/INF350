@@ -1,0 +1,7 @@
+experimento1.txt
+600 11/04/17 08:00
+3
+dht 2 T_interna
+dht 3 T_externa
+ldr A0 Luminosidade
+Fim
