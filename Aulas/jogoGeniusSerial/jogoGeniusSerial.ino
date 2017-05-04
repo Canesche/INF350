@@ -1,63 +1,72 @@
 // exemplo do jogo
 //http://labdegaragem.com/profiles/blogs/genius
 
-// o projeto pode ser encontrado em: https://circuits.io/circuits/4832665-jogo-genius-rgb-serial
-
-int R = 9;     //Pin 9
-int G = 10;    //Pin 10
-int B = 11;    //Pin 11
+int R = 9, G = 11, B = 10;
 String l, pisca_pisca;
 int qtdCores = 4; 
-int dificuldade = 1;
+int dificuldade = 1, j = 1;
 unsigned int tempoJogada, tempoPassado;
-bool venceu = true;
+bool venceu = true, parar = true, acende = true;
 
 void setup() {
-  Serial.begin(9600);
-  while (!Serial){;}
-  desliga();
-  randomSeed(analogRead(0));
+    Serial.begin(9600);
+    while (!Serial){;}
+    desliga();
+    randomSeed(analogRead(0)); // semente para o ranomico
 }
 
 void loop() {
-  // proxima fase
-  if(venceu){
+  if(venceu){ // se ele venceu ou primeira vez a jogar
+      reinicio:
+      Serial.println("\nAlready? GO! ");
+      Serial.end();
       pisca_pisca = "";
-      Serial.println("\nPreparado?");
-      delay(1000); 
+      delay(500); 
       for(int i = 0; i < dificuldade; i++){
             int numero = (random(qtdCores)+1);
-            //Serial.println(numero);
             pisca(numero);
-            delay(2000);
+            delay(1500);
             desliga();
-            delay(2000);
+            delay(1500);
             pisca_pisca += (String) numero;
       }
-      //Serial.println(pisca_pisca);
       tempoJogada = tempoPassado = millis();
       venceu = false;
+      parar = true; acende = true;
+      Serial.begin(9600);
       Serial.println("Sua vez! YU_GI_OH!!!!!");
   }
   
-  if(verificaTempo())
-    Serial.println("perdeu");
+  if(verificaTempo() && parar){
+    parar = false; acende = false;
+    Serial.println("perdeu playboy ou playgirl");
+    Serial.println("Jogar novamente? Aperte 'r' ");
+  }
 
   if (Serial.available()){ 
       l = Serial.readString();
-        //Serial.println(l);
-        //Serial.println(pisca_pisca);
+      if(l == "r"){
+        Serial.println("Vai tentar a sorte, quero ver...");
+            dificuldade = 1;
+            goto reinicio;
+        }
         if(l != pisca_pisca){
-            venceu = false;
+            venceu = false; acende = false;
             Serial.println("Errrrrrrouuuu da zero para ele");
+            Serial.println("Jogar novamente? Aperte 'r' ");
         }
       else{
-            Serial.println("Que a força esteja com você!");
+            Serial.println("Que a forca esteja com voce!\n");
             venceu = true;
           dificuldade++;
       }
   }
-  
+
+  if(verificaTempo() || !acende){
+    pisca(j++%4+1);
+    delay(400);
+    desliga();
+  }
   
 }
 
