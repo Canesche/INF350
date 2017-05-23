@@ -1,0 +1,3 @@
+1) Adaptar o trabalho 3 (a) do datalog para que os comandos sejam enviados pelo SERIAL de um computador conectado através do Arduino
+ a um radio NRF24L01. Um outro Arduino remoto que estará com os sensores. Ele irá receber os comandos e responder para via o radio para o Arduino que está conectado no Computador.
+2) Adaptar o trabalho 4 para ler o arquivo do Computador com um codigo Python. Enviar os comandos para o Arduino remoto via radio e receber os dados do arduino remoto e gravar localmente.
