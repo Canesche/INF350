@@ -5,8 +5,7 @@ RF24 myRadio (9, 10);
 struct package
 {
   int id=0;
-  float temperature = 18.3;
-  char  text[100] = "Text to be transmitted";
+  char  text[1024] ="empty";
 };
 
 byte addresses[][6] = {"0"}; 
@@ -30,13 +29,14 @@ void setup()
   delay(1000);
 
   if ( myRadio.available()) {
-     
-     while (myRadio.available()){
+     //Serial.println("opa");
+     while (myRadio.available())
+    {
       //Serial.println("Ju desconfiada");
       myRadio.read( &data, sizeof(data) );
     }
-    Serial.print("Data: ");
-    Serial.println(data.id);
+    //Serial.print("Data: ");
+    //Serial.println(data.id);
     count = data.id;  
   }
 }

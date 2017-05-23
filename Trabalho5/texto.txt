@@ -1,3 +1,5 @@
-1) Adaptar o trabalho 3 (a) do datalog para que os comandos sejam enviados pelo SERIAL de um computador conectado através do Arduino
- a um radio NRF24L01. Um outro Arduino remoto que estará com os sensores. Ele irá receber os comandos e responder para via o radio para o Arduino que está conectado no Computador.
-2) Adaptar o trabalho 4 para ler o arquivo do Computador com um codigo Python. Enviar os comandos para o Arduino remoto via radio e receber os dados do arduino remoto e gravar localmente.
+1) Fazer um codigo para contar o numero de pacotes que são perdidos entre um par de transmissores receptores. Não considerar a perda na inicialização.
+2) Mandar pacotes de 1k entre o par de 24l01 e medir a taxa de transmissão em bytes por segundo
+3) Enviar uma imagem de um computador para outro usando Python, 2 arduinos e 1 par de 24l01 para a transmissão sem fio
+4) Conectar um sensor remoto com o nrf24l01 e enviar as medidas e mostrar no serial do Receptor. Adaptar o trabalho 3a para que o sensor fique remoto e voce controla a distancia com o 24l01.
+5) Medir a escala de perdas de transmissão de um par de 24l01 usando um led RGB para medir a qualidade. Propor uma escala de cores.  
