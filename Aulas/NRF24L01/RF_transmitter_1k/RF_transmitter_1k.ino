@@ -1,0 +1,42 @@
+#include <SPI.h>  
+#include "RF24.h"
+
+RF24 myRadio (9, 10);  // <===== CHANGE 9,10
+byte addresses[][6] = {"0"};
+
+struct package{
+  int id=1;
+  char text[1024] ="empty";
+};
+
+
+typedef struct package Package;
+Package data;
+
+void setup()
+{
+  Serial.begin(115200);
+  delay(1000);
+  myRadio.begin();  
+  myRadio.setChannel(98); 
+  myRadio.setPALevel(RF24_PA_MAX);
+  myRadio.setDataRate( RF24_250KBPS ) ; 
+  myRadio.openWritingPipe( addresses[0]);
+  delay(1000);
+}
+
+void loop()
+{
+  myRadio.write(&data, sizeof(data)); 
+
+  /*Serial.print("\nPackage:");
+  Serial.print(data.id);
+  Serial.print("\n");
+  Serial.println(data.temperature);
+  Serial.println(data.text);*/
+  data.id = data.id + 1;
+  //data.text = data.text;
+  delay(1000);
+
+}
+  
