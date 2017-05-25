@@ -5,8 +5,7 @@ RF24 myRadio (9, 10);
 struct package
 {
   int id=0;
-  float temperature = 18.3;
-  char  text[100] = "Text to be transmitted";
+  char text = '1';
 };
 
 byte addresses[][6] = {"0"}; 
@@ -18,7 +17,7 @@ Package data;
 
 void setup() 
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(1000);
 
   myRadio.begin(); 
@@ -30,12 +29,13 @@ void setup()
   delay(1000);
 
   if ( myRadio.available()) {
-     
-     while (myRadio.available()){
+     //Serial.println("opa");
+     while (myRadio.available())
+    {
       //Serial.println("Ju desconfiada");
       myRadio.read( &data, sizeof(data) );
     }
-    Serial.print("Data: ");
+    Serial.print("Pacote: ");
     Serial.println(data.id);
     count = data.id;  
   }
@@ -54,7 +54,6 @@ void loop()
     Serial.print("\nPackage:");
     Serial.print(data.id);
     Serial.print("\n");
-    Serial.println(data.temperature);
     Serial.println(data.text);
     int diff = data.id - count - 1;
     Serial.print("QTD Pacote perdido: ");
