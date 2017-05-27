@@ -35,9 +35,8 @@ void setup()
       //Serial.println("Ju desconfiada");
       myRadio.read( &data, sizeof(data) );
     }
-    Serial.print("Pacote: ");
-    Serial.println(data.id);
-    count = data.id;  
+    
+    
   }
 }
 
