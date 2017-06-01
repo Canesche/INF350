@@ -1,12 +1,14 @@
 # Trabalho Final 
     
-Michael Canesche - 68064 - https://github.com/canesche
+Autores
+
+        Michael Canesche - 68064 - https://github.com/canesche
          
-Juliana Moreno   - 75763
+        Juliana Moreno   - 75763
          
-Vanessa Cristine - 77427 - https://github.com/VanessaCristiny
+        Vanessa Cristine - 77427 - https://github.com/VanessaCristiny
          
-Guttardo Pereira - 81823
+        Guttardo Pereira - 81823
 
 Professor responsável: 
          
