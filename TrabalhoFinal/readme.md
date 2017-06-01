@@ -2,7 +2,9 @@
     
 Autores
 
-       Michael Canesche - 68064 - https://github.com/canesche
+@canesche
+
+Michael Canesche - 68064 - https://github.com/canesche
          
        Juliana Moreno   - 75763
          
