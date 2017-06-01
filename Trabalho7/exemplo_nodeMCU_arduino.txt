@@ -1,0 +1,31 @@
+//Código no NodeMCU
+#include <SoftwareSerial.h>
+SoftwareSerial mySerial(13,15); // rx e tx2 NodeMCU - d8 e d7 (conferir a ordem) - ligar com resistor 5v para 3.3V
+void setup() {
+  //....
+  Serial.begin(115200);
+  mySerial.begin(115200);
+ 
+}
+void loop() {
+  //.....
+  if ( Serial.available() ) {  // Se voce digitar algo no terminal envia pelo Software serial para o arduino
+    mySerial.write(Serial.read()); }
+  if ( mySerial.available() ) { // se chegar algo do software serial mostra no terminal
+    Serial.write(mySerial.read()); } 
+}
+ 
+//Codigo simples no Arduino apenas para fazer um loopback, tudo que receber no software serial faz um eco...
+#include <SoftwareSerial.h>
+SoftwareSerial mySerial(2,3); // Note que usamos o 2 e 3 para o soft serial
+void setup() {
+  // initialize digital pin 2 as an output.
+  Serial.begin(115200);
+  mySerial.begin(115200);
+}
+void loop() {
+  if ( mySerial.available() ) {
+        mySerial.write(mySerial.read());  
+  }
+}
+

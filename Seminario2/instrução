@@ -1,0 +1,11 @@
+Montagem com exemplos e demonstração. Fazer slides com a teoria, explicações da biblioteca (se tiver), links para exemplos e vídeos. 
+Não mostrar vídeos na apresentação. Apenas demonstração com códigos que voces elaboraram. Nos slides ter trechos de códigos com explicações (usar fontes com cores que apareçam bem no datashow). Em grupo de 3. 
+Primeiro Dia
+1. Elaborar exemplos com interrupção. Explicar a interrupção por entrada, interrupção por serial e por tempo. Elaborar um demo para comunicação assíncrona de 2 arduino e outro para comunicação síncrono.
+2. Elaborar exemplos com lowpwer para colocar o arduino em modo Sleep. Adaptar o trabalho 3 para ligar o modo Sleep. 
+3. Robo Lego. Montar um robo lego com controle remoto usando o 24L01. Colocar um sensor ultrasonico no Robo.
+Segundo Dia
+1. Display Oled. Os demos devem Incluir mostrar imagens e como converter uma imagem para mostrar no Oled. Imprimir a leitura de sensores com a hora. Imprimir a leitura, a media, max e min. Fazer um grafico das medidas. Criar logo do DPI, da UFV e do Arduino.
+2. Display Touch (não usar o touch) Fazer os demos acima (Oled).
+3. Display TF. Fazer os Demo acima e mostrar o jogo Flat Bird. Propor tres modificações no Jogo.
+4. Display 16x2. Fazer os demos do Oled (sem imagens). Fazer o Trabalho 3a funcionar no LCD. 
