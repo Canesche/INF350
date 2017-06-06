@@ -50,7 +50,7 @@ void loop(){
   
   // Mostra dados no serial monitor
   Serial.print("Temp C: ");
-  Serial.print(tempC);
+  Serial.println(tempC);
    
   delay(3000);
 }
