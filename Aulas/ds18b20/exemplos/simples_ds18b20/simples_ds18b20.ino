@@ -1,5 +1,8 @@
-// Programa : Sensor de temperatura DS18B20
-// Autor : FILIPEFLOP
+/*
+ * Material adaptado por Michael Canesche
+ * Tutorial Original: FilipeFlop
+ * Objetivo: Encontrar os endereços físicos dos sensores que utilizam como protocolo o 1-wire
+ */
  
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -9,10 +12,6 @@
  
 // Define uma instancia do oneWire para comunicacao com o sensor
 OneWire oneWire(ONE_WIRE_BUS);
- 
-// Armazena temperaturas minima e maxima
-float tempMin = 999;
-float tempMax = 0;
  
 DallasTemperature sensors(&oneWire);
 DeviceAddress sensor1;
@@ -33,40 +32,25 @@ void setup(void)
   mostra_endereco_sensor(sensor1);
   Serial.println();
   Serial.println();
-   
 }
  
-void mostra_endereco_sensor(DeviceAddress deviceAddress)
-{
-  for (uint8_t i = 0; i < 8; i++)
-  {
+void mostra_endereco_sensor(DeviceAddress deviceAddress){
+  for (uint8_t i = 0; i < 8; i++){
     // Adiciona zeros se necessário
     if (deviceAddress[i] < 16) Serial.print("0");
     Serial.print(deviceAddress[i], HEX);
   }
 }
  
-void loop()
-{
+void loop(){
   // Le a informacao do sensor
   sensors.requestTemperatures();
   float tempC = sensors.getTempC(sensor1);
   // Atualiza temperaturas minima e maxima
-  if (tempC < tempMin)
-  {
-    tempMin = tempC;
-  }
-  if (tempC > tempMax)
-  {
-    tempMax = tempC;
-  }
+  
   // Mostra dados no serial monitor
   Serial.print("Temp C: ");
   Serial.print(tempC);
-  Serial.print(" Min : ");
-  Serial.print(tempMin);
-  Serial.print(" Max : ");
-  Serial.println(tempMax);
    
   delay(3000);
 }
