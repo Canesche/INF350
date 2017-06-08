@@ -86,10 +86,8 @@ void setup()
 
 }
 
-void loop()
-{
-  Blynk.run();
-    timer.run();
-
+void loop(){
+	Blynk.run();
+	timer.run();
 }
 
