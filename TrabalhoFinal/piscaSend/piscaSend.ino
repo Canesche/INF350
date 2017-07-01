@@ -7,21 +7,31 @@
 SoftwareSerial mySerial(2, 3); // RX, TX
 
 String r;
+int pacote, pacoteAntes, dif, qtd;
 
 void setup() {
   pinMode(13,OUTPUT);
   Serial.begin(9600);
   mySerial.begin(9600);
+  pacote = 0;
+  qtd = 0;
 }
 
 void loop() {
-  
-  mySerial.print("1");
 
   if(mySerial.available() > 0){    
-    digitalWrite(13,HIGH);
-    delay(1000); 
-    digitalWrite(13,LOW);
-    delay(1000);
+    pacoteAntes = mySerial.readString().toInt();
+    dif = pacote - pacoteAntes - 1;
+    if(dif < 20){
+      qtd += dif;
+      digitalWrite(13,HIGH);
+      delay(100); 
+      digitalWrite(13,LOW);
+      delay(100);
+      pacote = pacoteAntes;
+    }
+    Serial.println(qtd);
   }
+  
+  
 }

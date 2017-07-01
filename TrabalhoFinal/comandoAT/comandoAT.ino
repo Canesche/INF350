@@ -7,37 +7,32 @@
 SoftwareSerial mySerial(2, 3); // RX, TX
 
 String r;
+int pacote;
+bool passou;
 
 void setup() {
   Serial.begin(9600);
-  /*Serial.println("---Baud Rate---");
-  Serial.println("Type \"AT+Bxxxx\"");
-  Serial.println("xxxx => 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200");
-  Serial.println("---Canal de comunicacao---");
-  Serial.println("AT+Czzz");
-  Serial.println("zzz => 001 a 127");*/
   Serial.println("---Modulo Mode---");
-  Serial.println("Type \"AT+yyy\"");
+  Serial.println("\"AT+yyy\"");
   Serial.print("yyy => FU1, FU2, FU3, FU4");
   Serial.println("\nEnter AT commands:");
   mySerial.begin(9600);
+  pacote = 0;
+  passou = false;
+  while(!Serial.available()){;}
+  mySerial.write(Serial.read());
+  
 }
 
 void loop(){
   
-  if (Serial.available() > 0){
-    mySerial.write(mySerial.read());
+  mySerial.print(pacote);
+  pacote++;
+  Serial.println(pacote);
+
+  if(mySerial.available()){
+    Serial.println("opa");  
   }
   
-  if (mySerial.available() > 0){
-    r = Serial.readString();
-    if(r == "1"){
-      digitalWrite(13,HIGH);
-      delay(1000); 
-      digitalWrite(13,LOW);
-      delay(1000);
-    } else {
-      Serial.print(r);
-    }
-  }
+  delay(200);
 }
