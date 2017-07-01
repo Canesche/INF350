@@ -7,6 +7,7 @@
 SoftwareSerial mySerial(2, 3); //RX, TX
 
 void setup() {
+  pinMode(13,OUTPUT);
   Serial.begin(9600);
   mySerial.begin(9600);
 }
