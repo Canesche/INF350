@@ -2,7 +2,7 @@
 #define REMOTEHC12_H
 
 #include "Arduino.h"
-#include <String.h>
+//#include <string.h>
 #include <SoftwareSerial.h>
 
 class hc12{
@@ -18,10 +18,7 @@ public:
 	void Virtual(const int, int);
 	String ReadVirtual(const int);
 	void WriteVirtual(const int, float);
-	
+
 };
 
-
-
 #endif
-
