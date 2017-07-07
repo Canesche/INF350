@@ -76,7 +76,7 @@ void loop() {
       // pega o menor/maiores valores atuais
       if(ligaMin && valor < valorMIN) valorMIN = valor;
       if(ligaMax && valor > valorMAX) valorMAX = valor;
-      if(ligaMedia) valorMAX = ((valorMAX + valor) / ++qtd);
+      if(ligaMedia) valorMEDIA = ((valorMAX + valor) / ++qtd);
       if(ligaTempo) time_agora = now(); 
       if(ligaLeitura){
           // ordena vetor

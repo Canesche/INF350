@@ -2,18 +2,21 @@
 #include "RF24.h" 
 
 RF24 myRadio (9, 10); 
+byte addresses[][6] = {"123"}; 
+
+
+/*
 struct package
 {
   int id=0;
-  char text = '1';
+  float temperature = 0.0;
+  char  text[100] ="empty";
 };
-
-byte addresses[][6] = {"0"}; 
-
-unsigned count = 0;
 
 typedef struct package Package;
 Package data;
+
+*/
 
 void setup() 
 {
@@ -21,42 +24,34 @@ void setup()
   delay(1000);
 
   myRadio.begin(); 
-  myRadio.setChannel(98); 
+  myRadio.setChannel(115); 
   myRadio.setPALevel(RF24_PA_MAX);
   myRadio.setDataRate( RF24_250KBPS ) ; 
   myRadio.openReadingPipe(1, addresses[0]);
   myRadio.startListening();
-  delay(1000);
-
-  if ( myRadio.available()) {
-     //Serial.println("opa");
-     while (myRadio.available())
-    {
-      //Serial.println("Ju desconfiada");
-      myRadio.read( &data, sizeof(data) );
-    }
-    
-    
-  }
 }
 
 
 void loop()  
 {
-
+  char data;
   if ( myRadio.available()) 
   {
-    while (myRadio.available())
-    {
+    //while (myRadio.available())
+    //{
       myRadio.read( &data, sizeof(data) );
-    }
+      //total = total + data;
+    //}
+    /*
     Serial.print("\nPackage:");
     Serial.print(data.id);
     Serial.print("\n");
+    Serial.println(data.temperature);
     Serial.println(data.text);
-    int diff = data.id - count - 1;
-    Serial.print("QTD Pacote perdido: ");
-    Serial.println(diff);
-    count = data.id; 
+  */
+  //String lala = data.toString();
+  Serial.write(data);
   }
+  //delay(100);
+
 }

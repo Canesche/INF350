@@ -3,11 +3,11 @@
 #include <SPI.h>
 #include <UbidotsEthernet.h>
 
-#define TOKEN  " "  // Put here your Ubidots TOKEN
-#define ID_temp  " "  // id da temperatura
-#define ID_R " " // id do led vermelho
-#define ID_G " " // id do led verde
-#define ID_B " " // id do led azul
+#define TOKEN  "2Gpv6FS2hRH9Xzeq9cUIVoajYpIvKT"  // Put here your Ubidots TOKEN
+#define ID_temp  "595fc3a676254216a9b8b700"  // id da temperatura
+#define ID_R "595fc37076254216a8e204c8" // id do led vermelho
+#define ID_G "595ab8767625422398e3c0ac" // id do led verde
+#define ID_B "595fc38976254216a670db47" // id do led azul
 
 // NRF024 
 #include "RF24.h"
