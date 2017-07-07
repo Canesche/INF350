@@ -77,23 +77,8 @@ void loop(){
   
   t = millis();
   if ( t - last > 1000 ) {
-     valor = analogRead(0);
-
-     if(valor < valorMIN) valorMIN = valor;
-     if(valor > valorMAX) valorMAX = valor;
-     
-     //int r = client.subscribe("publico/inTopic");
-     Serial.println(client.subscribe("publico/jmv/ligamin"));
-     
-     /*if(r == 1){
-        Serial.println("opa");
-     } else {
-        Serial.println("nao ligou"); 
-     }*/
-     last = t;
      String msg = String(t);
-     client.publish("publico/jmv/valor",String(valorMIN,1).c_str());
-     client.publish("publico/jmv/teste",msg.c_str());
+     client.publish("publico/outTopic",msg.c_str());
   }
   
 }
