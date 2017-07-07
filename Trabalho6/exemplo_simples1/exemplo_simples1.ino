@@ -7,7 +7,7 @@ bool ligaMin = false, ligaMax = false, ligaMedia = false, ligaTempo = false, lig
 
 // Update these with values suitable for your network.
 byte mac[]    = { 0xDE, 0xAD, 0xBE, 0xEF, 0xCC, 0x04 };
-//IPAddress ip(200,235,131,37);
+IPAddress ip(200,235,131,37);
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
@@ -57,8 +57,8 @@ void setup(){
   //client.setServer("broker.hivemq.com", 1883);
   client.setCallback(callback);
 
-  //Ethernet.begin(mac, ip);
-  Ethernet.begin(mac);
+  Ethernet.begin(mac, ip);
+  //Ethernet.begin(mac);
   // Allow the hardware to sort itself out
   delay(1500);
   t = last = millis();

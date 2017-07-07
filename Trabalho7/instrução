@@ -1,18 +1,7 @@
-Trabalho 7 - Grupo de até 3 pessoas. Usando Blynk e Ubidots.
+Trabalho 7 - Grupo de até 3 pessoas. Usando Blynk ou Ubidots.
 
-a) Ubidots -  Selecionar Arduino com Ethernet ou NodeMCU. 
--> Criar duas variáveis: Exec/Config e Add. 
--> No Dashboard, adicionar dois controle tipo Switch. 
--> Ao clicar em Exec/Config voce pode estar no mode de configuração ou execução. 
--> No modo de configuração voce pode adicionar o ID de uma terceira variável sem ter que reprogramar o device (Arduino ou NodeMCU). 
--> Dinamicamente, seu código que já está executando no Device irá adicionar o sensor (DHT, Ultrasonico, 18B20, voce pode escolher qual irá usar). 
--> Ao voltar ao mode de execução, a leitura do sensor poderá ser visualizada no Dashboard.
-b) Ubidots -. Usar um Arduino com Ethernet ou NodeMCU ligado a um Arduino via serial. 
--> Este será o Device SINK. O Sink tem um 24l01 que irá conectar a uma outro 24L01 com um Arduino e um sensor e um acionador. 
--> Voce pode usar DHT, 18b20 ou Ultrasonico de Sensor. 
--> O acionador pode ser um LED ou LED RGB. 
--> Através do Ubidots você irá controlar o arduino remoto (ler sensor e alterar o LED).
-c) Blynk com Arduino no USB como nodo sink. 
--> Fazer o mesmo que a parte b). 
--> Alem disso, terá um componente email e um botão. 
--> Se o botão estiver ligado, o blink irá enviar um email com a leitura que recebeu do sensor remoto.
+Ubidots -> Arduino1 <-> 24L01 <-> ..............24L01 <-> Arduino2 <-> sensor e LedRGB
+
+O Arduino 2 ler um sensor e pode enviar para o Arduino 1. O Arduino 1 irá publicar este sensor na interface do Ubidots. 
+
+Faça tambem o Arduino2 controlar um led RBG que recebe os comandos do Ubidots para mostrar que é capaz de enviar e receber.
